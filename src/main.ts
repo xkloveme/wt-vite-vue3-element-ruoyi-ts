@@ -1,9 +1,5 @@
 import { createApp } from 'vue'
-import i18n from './locales'
-// element-plus
-import ElementPlus from 'element-plus'
-import 'element-plus/packages/theme-chalk/src/base.scss'
-import 'element-plus/lib/theme-chalk/index.css'
+import elementPlus from './elementPlus'
 
 
 // global css
@@ -15,7 +11,7 @@ import { store } from './store'
 
 import './permission' // permission control
 const app = createApp(App)
-app.use(i18n)
-app.use(ElementPlus)
+app.use(elementPlus)
+
 app.use(router).use(store).mount('#app')
 export default app

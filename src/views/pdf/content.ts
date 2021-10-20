@@ -2,7 +2,7 @@
  * @Description:
  * @Autor: scy😊
  * @Date: 2021-01-25 10:06:38
- * @LastEditors: scy😊
+ * @LastEditors: xkloveme
  * @LastEditTime: 2021-01-25 10:06:38
  */
 const title = 'Plans for the Next Iteration of Vue.js'

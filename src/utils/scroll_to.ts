@@ -2,7 +2,7 @@
  * @Description:
  * @Autor: xkloveme
  * @Date: 2021-01-13 09:08:13
- * @LastEditors: scy😊
+ * @LastEditors: xkloveme
  * @LastEditTime: 2021-01-13 09:08:14
  */
 const easeInOutQuad = (t: number, b: number, c: number, d: number) => {

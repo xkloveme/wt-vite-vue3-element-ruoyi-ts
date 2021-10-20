@@ -4,137 +4,64 @@
 
 <template>
   <div class="login-container">
-    <video
-      poster="../../../assets/images/login/video-cover.jpeg"
-      loop
-      autoplay
-      muted
-    >
-      <source src="https://lajw.watone.com.cn/linanjiwei/aa/night.mp4">
+    <video poster="../../../assets/images/login/video-cover.jpeg" loop autoplay muted>
     </video>
-
-    <el-form
-      ref="loginFormRef"
-      :model="loginForm"
-      :rules="loginRules"
-      class="login-form"
-      autocomplete="on"
-      label-position="left"
-    >
+    <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on" label-position="left">
       <div class="title-container">
         <h3 class="title">
           {{ t('login.title') }}
         </h3>
-        <LangSelect
-          :isWhite="true"
-          class="set-language"
-        />
+        <LangSelect :isWhite="true" class="set-language" />
       </div>
 
-      <div v-if="tips.NODE_ENV === 'prerelease'">
+      <div>
         <el-form-item prop="username">
           <span class="svg-container">
             <i class="el-icon-user" />
           </span>
-          <el-input
-            ref="userNameRef"
-            v-model="loginForm.username"
-            :placeholder="t('login.username')"
-            name="username"
-            type="text"
-            tabindex="1"
-            autocomplete="on"
-          />
+          <el-input ref="userNameRef" v-model="loginForm.username" :placeholder="t('login.username')" name="username" type="text" tabindex="1" autocomplete="on" />
         </el-form-item>
 
-        <el-tooltip
-          v-model="capsTooltip"
-          content="Caps lock is On"
-          placement="right"
-          manual
-        >
+        <el-tooltip v-model="capsTooltip" content="Caps lock is On" placement="right" manual>
           <el-form-item prop="password">
             <span class="svg-container">
               <i class="el-icon-lock" />
             </span>
-            <el-input
-              :key="passwordType"
-              ref="passwordRef"
-              v-model="loginForm.password"
-              :type="passwordType"
-              :placeholder="t('login.password')"
-              name="password"
-              tabindex="2"
-              autocomplete="on"
-              @keyup="checkCapslock"
-              @blur="capsTooltip = false"
-            />
+            <el-input :key="passwordType" ref="passwordRef" v-model="loginForm.password" :type="passwordType" :placeholder="t('login.password')" name="password" tabindex="2" autocomplete="on" @keyup="checkCapslock" @blur="capsTooltip = false" />
           </el-form-item>
         </el-tooltip>
         <el-form-item prop="code">
-          <el-input
-            v-model="loginForm.code"
-            auto-complete="off"
-            :placeholder="t('login.code')"
-            style="width: 63%"
-            @keydown.prevent.enter="handleLogin"
-          >
-            <svg-icon
-              icon-class="validCode"
-              class="el-input__icon input-icon"
-            />
+          <el-input v-model="loginForm.code" auto-complete="off" :placeholder="t('login.code')" style="width: 63%" @keydown.prevent.enter="handleLogin">
+            <svg-icon icon-class="validCode" class="el-input__icon input-icon" />
           </el-input>
           <div class="login-code">
-            <img
-              :src="codeUrl"
-              class="login-code-img"
-              @click="getSmsCode"
-            >
+            <img :src="codeUrl" class="login-code-img" @click="getSmsCode">
           </div>
         </el-form-item>
       </div>
-      <div v-else>
+      <div>
         <el-form-item prop="code">
           <span class="svg-container">
             <i class="el-icon-lock" />
           </span>
-          <el-input
-            v-model="loginForm.code"
-            auto-complete="off"
-            :placeholder="t('login.code')"
-            @keydown.prevent.enter="handleLogin"
-          >
-            <svg-icon
-              icon-class="validCode"
-              class="el-input__icon input-icon"
-            />
+          <el-input v-model="loginForm.code" auto-complete="off" :placeholder="t('login.code')" @keydown.prevent.enter="handleLogin">
+            <svg-icon icon-class="validCode" class="el-input__icon input-icon" />
           </el-input>
         </el-form-item>
       </div>
 
-      <el-button
-        :loading="loading"
-        type="primary"
-        style="width:100%; margin-bottom:30px;"
-        @click.prevent="handleLogin"
-      >
+      <el-button :loading="loading" type="primary" style="width:100%; margin-bottom:30px;" @click.prevent="handleLogin">
         {{ t('login.logIn') }}
       </el-button>
 
       <div style="position:relative">
-        <div
-          class="tips"
-          v-if="tips.NODE_ENV === 'prerelease'"
-        >
+        <div class="tips" v-if="tips.NODE_ENV === 'prerelease'">
           <span>{{ t('login.username') }} : {{ tips.username }} </span>
           <span>{{ t('login.password') }} : {{ tips.password }} </span>
         </div>
         <div class="tips">
-          <el-link
-            type="warning"
-            :href="tips.VUE_APP_BASE_API"
-          >
-            当前{{ tips.NODE_ENV }}环境<span v-if="tips.NODE_ENV !== 'prerelease'">，点击获取code</span>
+          <el-link type="warning" :href="tips.VUE_APP_BASE_API">
+            当前{{ tips }}环境<span v-if="tips.NODE_ENV !== 'prerelease'">，点击获取code</span>
           </el-link>
         </div>
       </div>
@@ -143,15 +70,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  onMounted,
-  reactive,
-  watch,
-  ref,
-  nextTick,
-  toRefs
-} from 'vue'
+import { defineComponent, onMounted, reactive, watch, ref, nextTick, toRefs } from 'vue'
 import LangSelect from '@/components/lang_select/Index.vue'
 import { isValidUsername } from '@/utils/validate'
 import { useRoute, LocationQuery, useRouter } from 'vue-router'
@@ -172,10 +91,7 @@ export default defineComponent({
     const router = useRouter()
     const route = useRoute()
     const store = useStore()
-    // const { t } = useI18n()
-     const { t } = useI18n({
-      inheritLocale: true
-    })
+    const { t } = useI18n()
     const state = reactive({
       loginForm: {
         username: import.meta.env.VUE_APP_USERNAME || '',
@@ -213,14 +129,14 @@ export default defineComponent({
     }
 
     const methods = reactive({
-      validateUsername: (rule: any, value: string, callback: Function) => {
+      validateUsername: (_rule: any, value: string, callback: Function) => {
         if (!isValidUsername(value)) {
           callback(new Error('Please enter the correct user name'))
         } else {
           callback()
         }
       },
-      validatePassword: (rule: any, value: string, callback: Function) => {
+      validatePassword: (_rule: any, value: string, callback: Function) => {
         if (value.length < 6) {
           callback(new Error('The password can not be less than 6 digits'))
         } else {
@@ -229,8 +145,7 @@ export default defineComponent({
       },
       checkCapslock: (e: KeyboardEvent) => {
         const { key } = e
-        state.capsTooltip =
-          key !== null && key.length === 1 && key >= 'A' && key <= 'Z'
+        state.capsTooltip = key !== null && key.length === 1 && key >= 'A' && key <= 'Z'
       },
       showPwd: () => {
         if (state.passwordType === 'password') {
@@ -320,7 +235,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .login-code {
   float: right;
   height: 47px;

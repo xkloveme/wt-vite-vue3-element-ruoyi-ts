@@ -3,19 +3,16 @@
  * @Autor: xkloveme
  * @Date: 2020-12-18 15:23:57
  * @LastEditors: xkloveme
- * @LastEditTime: 2021-10-20 13:36:01
+ * @LastEditTime: 2021-10-20 14:54:12
  */
 import { createI18n } from 'vue-i18n' // import from runtime only
 
 import { getLanguage } from '@/utils/cookies'
-
 import elementEnLocale from 'element-plus/lib/locale/lang/en'
 import elementZhLocale from 'element-plus/lib/locale/lang/zh-cn'
-
 // User defined lang
 import enLocale from './en'
 import zhLocale from './zh-cn'
-
 const messages = {
   en: {
     ...enLocale,
@@ -45,8 +42,7 @@ export const getLocale = () => {
 }
 
 const i18n = createI18n({
-  locale: getLocale(),
+  locale: getLocale() || 'zh-cn',
   messages: messages
 })
-
 export default i18n

@@ -1,6 +1,6 @@
 <!--
  * @Description: 柱形图
- * @Author: ZY
+ * @Author: xkloveme
  * @Date: 2021-01-08 19:24:26
  * @LastEditors: ZY
  * @LastEditTime: 2021-01-15 09:06:21
