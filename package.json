@@ -1,6 +1,6 @@
 {
   "name": "wt-vite-vue3-element-ruoyi-ts",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",

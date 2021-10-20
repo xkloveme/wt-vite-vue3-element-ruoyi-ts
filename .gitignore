@@ -13,11 +13,14 @@ selenium-debug.log
 # Editor directories and files
 .idea
 .vscode
+.nova
+.pnpm-debug.log
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.local
 
+pnpm-lock.yaml
 package-lock.json
 yarn.lock
